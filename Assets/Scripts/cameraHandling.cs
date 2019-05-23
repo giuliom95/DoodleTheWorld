@@ -25,7 +25,7 @@ public class cameraHandling : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .1f));
+            Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .3f));
             //Vector2 pos = touch.position;
 
             if (touch.phase == TouchPhase.Began)
