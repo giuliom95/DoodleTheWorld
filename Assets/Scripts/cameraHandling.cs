@@ -9,11 +9,12 @@ public class cameraHandling : MonoBehaviour
     public GameObject sphere;
     public GameObject cylinder;
 
-    List<Vector3> points = new List<Vector3>();
+    List<List<Vector3>> strokes;
+    List<Vector3> currentStroke;
 
     void Start()
     {
-        
+        strokes = new List<List<Vector3>>();
     }
 
     // Update is called once per frame
@@ -29,8 +30,7 @@ public class cameraHandling : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
                 BeginStroke(p);
-
-            if (touch.phase == TouchPhase.Moved)
+            else
                 ContinueStroke(p);
 
             if (touch.phase == TouchPhase.Ended)
@@ -40,7 +40,7 @@ public class cameraHandling : MonoBehaviour
 
     void ContinueStroke(Vector3 p)
     {
-        Vector3 v0 = points[points.Count - 1];
+        Vector3 v0 = currentStroke[currentStroke.Count - 1];
         Vector3 v1 = p;
         Vector3 d = v1 - v0;
         float l = d.magnitude;
@@ -50,14 +50,13 @@ public class cameraHandling : MonoBehaviour
         scale.z = l;
         c.transform.localScale = scale;
         Instantiate(sphere, v1, Quaternion.identity);
-        points.Add(p);
+        currentStroke.Add(p);
     }
 
     void BeginStroke(Vector3 p)
     {
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
-            Destroy(obj);
-        points.Clear();
-        points.Add(p);
+        strokes.Add(new List<Vector3>());
+        currentStroke = strokes[strokes.Count - 1];
+        currentStroke.Add(p);
     }
 }
