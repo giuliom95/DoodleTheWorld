@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1590484618738003787}
   m_Layer: 0
   m_Name: StrokeFiller_prefab
-  m_TagString: Untagged
+  m_TagString: Instance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

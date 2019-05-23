@@ -13,7 +13,7 @@ public class cameraHandling : MonoBehaviour
 
     void Start()
     {
-        points.Add(new Vector3());
+        
     }
 
     // Update is called once per frame
@@ -21,11 +21,24 @@ public class cameraHandling : MonoBehaviour
     {
         coordText.text = transform.position + "\n" + transform.rotation.eulerAngles;
 
-        Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .1f));
-        AddPoint(p);
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .1f));
+            //Vector2 pos = touch.position;
+
+            if (touch.phase == TouchPhase.Began)
+                BeginStroke(p);
+
+            if (touch.phase == TouchPhase.Moved)
+                ContinueStroke(p);
+
+            if (touch.phase == TouchPhase.Ended)
+                {}
+        }
     }
 
-    void AddPoint(Vector3 p)
+    void ContinueStroke(Vector3 p)
     {
         Vector3 v0 = points[points.Count - 1];
         Vector3 v1 = p;
@@ -37,6 +50,14 @@ public class cameraHandling : MonoBehaviour
         scale.z = l;
         c.transform.localScale = scale;
         Instantiate(sphere, v1, Quaternion.identity);
+        points.Add(p);
+    }
+
+    void BeginStroke(Vector3 p)
+    {
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
+            Destroy(obj);
+        points.Clear();
         points.Add(p);
     }
 }
