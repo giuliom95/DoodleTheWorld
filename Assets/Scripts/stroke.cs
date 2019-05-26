@@ -8,50 +8,53 @@ class Stroke
     public GameObject parent;
     GameObject pointPrefab;
     GameObject edgePrefab;
-    List<GameObject> points;
+    List<GameObject> vertices;
     List<GameObject> edges;
 
     public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab)
     {
         pointPrefab = pPfab;
         edgePrefab = ePfab;
-        points = new List<GameObject>();
+        vertices = new List<GameObject>();
         edges = new List<GameObject>();
 
-        AddPoint(firstPoint);
         parent = new GameObject("Stroke");
         parent.transform.position = firstPoint;
 
+        AddVertex(firstPoint);
+        Debug.Log(firstPoint);
+        Debug.Log(parent.transform.InverseTransformPoint(firstPoint));
     }
 
-    private void AddPoint(Vector3 p)
+    private void AddVertex(Vector3 v)
     {
-        GameObject go = GameObject.Instantiate(pointPrefab, p, Quaternion.identity);
-        points.Add(go);
+        GameObject vGO = GameObject.Instantiate(pointPrefab, v, Quaternion.identity, parent.transform);
+        vertices.Add(vGO);
     }
 
     public void AddSegment(Vector3 p)
     {
-        Vector3 v0 = this[points.Count - 1];
+        Vector3 v0 = this[vertices.Count - 1];
         Vector3 v1 = p;
         Vector3 d = v1 - v0;
         float l = d.magnitude;
         Quaternion r = Quaternion.LookRotation(d);
-        GameObject c = GameObject.Instantiate(edgePrefab, v0, r);
-        Vector3 scale = c.transform.localScale;
+        GameObject eGO = GameObject.Instantiate(edgePrefab, v0, r, parent.transform);
+        Vector3 scale = eGO.transform.localScale;
         scale.z = l;
-        c.transform.localScale = scale;
+        eGO.transform.localScale = scale;
+        edges.Add(eGO);
 
-        AddPoint(p);
+        AddVertex(v1);
     }
 
     public Vector3 this[int i]
     {
-        get { return points[i].transform.position; }
+        get { return vertices[i].transform.position; }
     }
 
     public int Count
     {
-        get { return points.Count; }
+        get { return vertices.Count; }
     }
 }
