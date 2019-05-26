@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GoogleARCore;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,19 +13,41 @@ public class cameraHandling : MonoBehaviour
     List<List<Vector3>> strokes;
     List<Vector3> currentStroke;
 
+    Camera cam;
+
+    Pose markerPose;
+    string foundMarker;
+
+    private List<AugmentedImage> augmentedImages = new List<AugmentedImage>();
+
     void Start()
     {
         strokes = new List<List<Vector3>>();
+        cam = GetComponent<Camera>();
+        foundMarker = null;
+        coordText.text = "Looking for marker...";
     }
 
     // Update is called once per frame
     void Update()
     {
-        coordText.text = transform.position + "\n" + transform.rotation.eulerAngles;
+        Session.GetTrackables<AugmentedImage>(augmentedImages, TrackableQueryFilter.Updated);
+
+        foreach(AugmentedImage img in augmentedImages)
+        {
+            markerPose = img.CenterPose;
+            if (foundMarker == null)
+                foundMarker = img.Name;
+            coordText.text = "Marker " + foundMarker + "\n" + markerPose.position + "\n" + markerPose.rotation.eulerAngles;
+        }
 
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
+            Matrix4x4 m = cam.projectionMatrix.inverse;
+            Vector2 screenPos = touch.position;
+            coordText.text = m.MultiplyPoint(new Vector3(screenPos.x, screenPos.y, .3f)) + "\n" + screenPos;
+
             Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .3f));
             //Vector2 pos = touch.position;
 
@@ -55,8 +78,8 @@ public class cameraHandling : MonoBehaviour
 
     void BeginStroke(Vector3 p)
     {
-        strokes.Add(new List<Vector3>());
-        currentStroke = strokes[strokes.Count - 1];
+        currentStroke = new List<Vector3>();
+        strokes.Add(currentStroke);
         currentStroke.Add(p);
     }
 }
