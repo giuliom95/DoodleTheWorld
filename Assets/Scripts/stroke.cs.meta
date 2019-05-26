@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 40e27a96a8abd334aa9188024309cfa9
+guid: b9e1f5500a7a6ab4fa19efe8c59f8ddc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pointPrefab: {fileID: 7456586466019687997, guid: 06b4c8831938d994c9c991ee77f4300a,
+      type: 3}
+  - edgePrefab: {fileID: 1590484618740199819, guid: cf71e6836506b8d47a1caa1df6bfc0f1,
+      type: 3}
+  - parent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

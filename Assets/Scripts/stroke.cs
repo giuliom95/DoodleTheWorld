@@ -2,55 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class stroke : MonoBehaviour
+class Stroke
 {
-    public GameObject sphere;
-    public GameObject cylinder;
-    // Start is called before the first frame update
-    void Start()
+
+    public GameObject parent;
+    GameObject pointPrefab;
+    GameObject edgePrefab;
+    List<GameObject> points;
+    List<GameObject> edges;
+
+    public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab)
     {
-        StrokeAround();
+        pointPrefab = pPfab;
+        edgePrefab = ePfab;
+        points = new List<GameObject>();
+        edges = new List<GameObject>();
+
+        AddPoint(firstPoint);
+        parent = new GameObject("Stroke");
+        parent.transform.position = firstPoint;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void AddPoint(Vector3 p)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
-                Destroy(obj);
-            StrokeAround();
-        }
+        GameObject go = GameObject.Instantiate(pointPrefab, p, Quaternion.identity);
+        points.Add(go);
     }
 
-    void StrokeAround()
+    public void AddSegment(Vector3 p)
     {
-        List<Vector3> points = new List<Vector3>();
-        Vector3 pnt = Random.insideUnitSphere;
-        Vector3 dir = Random.onUnitSphere;
-        points.Add(pnt);
-        for (int i = 0; i < 4000; ++i)
-        {
-            dir += 0.7f * Random.insideUnitSphere;
-            dir.Normalize();
-            pnt += 0.1f * dir;
-            points.Add(pnt);
-        }
+        Vector3 v0 = this[points.Count - 1];
+        Vector3 v1 = p;
+        Vector3 d = v1 - v0;
+        float l = d.magnitude;
+        Quaternion r = Quaternion.LookRotation(d);
+        GameObject c = GameObject.Instantiate(edgePrefab, v0, r);
+        Vector3 scale = c.transform.localScale;
+        scale.z = l;
+        c.transform.localScale = scale;
 
+        AddPoint(p);
+    }
 
-        Instantiate(sphere, points[0], Quaternion.identity);
-        for (int i = 0; i < (points.Count - 1); ++i)
-        {
-            Vector3 v0 = points[i];
-            Vector3 v1 = points[i + 1];
-            Vector3 d = v1 - v0;
-            float l = d.magnitude;
-            Quaternion r = Quaternion.LookRotation(d);
-            GameObject c = Instantiate(cylinder, v0, r);
-            Vector3 scale = c.transform.localScale;
-            scale.z = l;
-            c.transform.localScale = scale;
-            Instantiate(sphere, v1, Quaternion.identity);
-        }
+    public Vector3 this[int i]
+    {
+        get { return points[i].transform.position; }
+    }
+
+    public int Count
+    {
+        get { return points.Count; }
     }
 }
