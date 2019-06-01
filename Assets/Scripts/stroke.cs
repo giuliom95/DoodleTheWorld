@@ -56,31 +56,4 @@ class Stroke
     {
         get { return vertices.Count; }
     }
-    void LoadStroke()
-    {
-        List<List<Vector3>> drawing = this.GetComponent<xmlControl>().SelectStroke(10);
-
-        foreach (List<Vector3> stroke in drawing)
-        {
-            Debug.Log(stroke);
-            Instantiate(sphere, stroke[0], Quaternion.identity);
-            for (int i = 0; i < (stroke.Count - 1); ++i)
-            {
-                Debug.Log(stroke[i].x);
-                Vector3 v0 = stroke[i];
-                Vector3 v1 = stroke[i + 1];
-                Vector3 d = v1 - v0;
-                float l = d.magnitude;
-                Quaternion r = Quaternion.LookRotation(d);
-                GameObject c = Instantiate(cylinder, v0, r);
-                Vector3 scale = c.transform.localScale;
-                scale.z = l;
-                c.transform.localScale = scale;
-                Instantiate(sphere, v1, Quaternion.identity);
-            }
-        }
-        
-
-    }
-
 }
