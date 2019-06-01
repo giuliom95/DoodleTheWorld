@@ -9,7 +9,8 @@ public class stroke : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StrokeAround();
+        //StrokeAround();
+        LoadStroke();
     }
 
     // Update is called once per frame
@@ -29,14 +30,14 @@ public class stroke : MonoBehaviour
         Vector3 pnt = Random.insideUnitSphere;
         Vector3 dir = Random.onUnitSphere;
         points.Add(pnt);
-        for (int i = 0; i < 4000; ++i)
+        for (int i = 0; i < 10; ++i)
         {
             dir += 0.7f * Random.insideUnitSphere;
             dir.Normalize();
             pnt += 0.1f * dir;
             points.Add(pnt);
         }
-
+        this.GetComponent<xmlControl>().CreateStroke(points,10);
 
         Instantiate(sphere, points[0], Quaternion.identity);
         for (int i = 0; i < (points.Count - 1); ++i)
@@ -52,5 +53,33 @@ public class stroke : MonoBehaviour
             c.transform.localScale = scale;
             Instantiate(sphere, v1, Quaternion.identity);
         }
+
     }
+    void LoadStroke()
+    {
+        List<List<Vector3>> drawing = this.GetComponent<xmlControl>().SelectStroke(10);
+
+        foreach (List<Vector3> stroke in drawing)
+        {
+            Debug.Log(stroke);
+            Instantiate(sphere, stroke[0], Quaternion.identity);
+            for (int i = 0; i < (stroke.Count - 1); ++i)
+            {
+                Debug.Log(stroke[i].x);
+                Vector3 v0 = stroke[i];
+                Vector3 v1 = stroke[i + 1];
+                Vector3 d = v1 - v0;
+                float l = d.magnitude;
+                Quaternion r = Quaternion.LookRotation(d);
+                GameObject c = Instantiate(cylinder, v0, r);
+                Vector3 scale = c.transform.localScale;
+                scale.z = l;
+                c.transform.localScale = scale;
+                Instantiate(sphere, v1, Quaternion.identity);
+            }
+        }
+        
+
+    }
+
 }

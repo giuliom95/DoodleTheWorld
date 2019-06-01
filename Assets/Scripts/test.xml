@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Drawings>
+  <Marker ID="11">
+    <Drawing ID="1">
+      <name>
+        <blah>jasjda</blah>
+      </name>
+    </Drawing>
+    <Drawing ID="10">
+      <Stroke>
+        <position X="-0.338530779" Y="-0.524072468" Z="0.611673236" />
+      </Stroke>
+    </Drawing>
+  </Marker>
+  <Marker ID="10">
+    <Drawing ID="21">
+      <stroke>
+        <position X="-0.10072758" Y="-0.09355267" Z="-0.910516" />
+        <position X="-0.123534687" Y="-0.0399352238" Z="-0.9917872" />
+        <position X="-0.1203248" Y="0.0475483" Z="-1.04012275" />
+        <position X="-0.138950482" Y="0.136781737" Z="-1.08123815" />
+        <position X="-0.168986276" Y="0.232109442" Z="-1.0780009" />
+        <position X="-0.188877031" Y="0.32716167" Z="-1.05413818" />
+        <position X="-0.155973941" Y="0.41827175" Z="-1.07896435" />
+        <position X="-0.1652463" Y="0.504811645" Z="-1.12820733" />
+        <position X="-0.1993695" Y="0.5945187" Z="-1.156283" />
+        <position X="-0.23579292" Y="0.6872184" Z="-1.16523278" />
+      </stroke>
+    </Drawing>
+  </Marker>
+</Drawings>
