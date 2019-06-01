@@ -11,7 +11,7 @@ class Stroke
     List<GameObject> vertices;
     List<GameObject> edges;
 
-    public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab)
+    public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab, GameObject marker)
     {
         pointPrefab = pPfab;
         edgePrefab = ePfab;
@@ -19,11 +19,10 @@ class Stroke
         edges = new List<GameObject>();
 
         parent = new GameObject("Stroke");
+        parent.transform.SetParent(marker.transform);
         parent.transform.position = firstPoint;
 
         AddVertex(firstPoint);
-        Debug.Log(firstPoint);
-        Debug.Log(parent.transform.InverseTransformPoint(firstPoint));
     }
 
     private void AddVertex(Vector3 v)

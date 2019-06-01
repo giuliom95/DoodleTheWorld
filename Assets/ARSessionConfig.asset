@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ac32fab2599402fb6d154adf4c1e40, type: 3}
   m_Name: ARSessionConfig
   m_EditorClassIdentifier: 
-  MatchCameraFramerate: 1
+  MatchCameraFramerate: 0
   PlaneFindingMode: 0
   EnableLightEstimation: 0
   EnableCloudAnchor: 0
-  AugmentedImageDatabase: {fileID: 11400000, guid: e03d622507808dc4582fbf085f91987e,
+  AugmentedImageDatabase: {fileID: 11400000, guid: 3062f7cd9087ff04da2e2500b23f4993,
     type: 2}
   CameraFocusMode: 1
   AugmentedFaceMode: 0
