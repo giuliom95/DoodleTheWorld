@@ -38,5 +38,6 @@ public class StrokeTest : MonoBehaviour
             pnt += 0.1f * dir;
             stroke.AddSegment(pnt);
         }
+        Debug.Log(JsonUtility.ToJson(stroke));
     }
 }

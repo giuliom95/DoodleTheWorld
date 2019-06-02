@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Stroke
+[System.Serializable]
+public class Stroke
 {
-
-    public GameObject parent;
+    GameObject parent;
     GameObject pointPrefab;
     GameObject edgePrefab;
     List<GameObject> vertices;
     List<GameObject> edges;
+    public List<Vector3> points;
 
     public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab, GameObject marker)
     {
@@ -17,6 +18,7 @@ class Stroke
         edgePrefab = ePfab;
         vertices = new List<GameObject>();
         edges = new List<GameObject>();
+        points = new List<Vector3>();
 
         parent = new GameObject("Stroke");
         parent.transform.SetParent(marker.transform);
@@ -29,6 +31,7 @@ class Stroke
     {
         GameObject vGO = GameObject.Instantiate(pointPrefab, v, Quaternion.identity, parent.transform);
         vertices.Add(vGO);
+        points.Add(vGO.transform.localPosition);
     }
 
     public void AddSegment(Vector3 p)
