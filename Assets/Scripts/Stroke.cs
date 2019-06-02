@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class Stroke
 {
     GameObject parent;
@@ -10,7 +9,6 @@ public class Stroke
     GameObject edgePrefab;
     List<GameObject> vertices;
     List<GameObject> edges;
-    public List<Vector3> points;
 
     public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab, GameObject marker)
     {
@@ -18,7 +16,6 @@ public class Stroke
         edgePrefab = ePfab;
         vertices = new List<GameObject>();
         edges = new List<GameObject>();
-        points = new List<Vector3>();
 
         parent = new GameObject("Stroke");
         parent.transform.SetParent(marker.transform);
@@ -31,7 +28,6 @@ public class Stroke
     {
         GameObject vGO = GameObject.Instantiate(pointPrefab, v, Quaternion.identity, parent.transform);
         vertices.Add(vGO);
-        points.Add(vGO.transform.localPosition);
     }
 
     public void AddSegment(Vector3 p)
@@ -58,5 +54,15 @@ public class Stroke
     public int Count
     {
         get { return vertices.Count; }
+    }
+
+    public SerializableStroke BuildSerializable()
+    {
+        SerializableStroke s = new SerializableStroke();
+        s.origin = parent.transform.localPosition;
+        s.points = new List<Vector3>();
+        foreach(GameObject v in vertices)
+            s.points.Add(v.transform.localPosition);
+        return s;
     }
 }

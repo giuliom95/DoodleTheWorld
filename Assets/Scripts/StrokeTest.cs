@@ -8,9 +8,16 @@ public class StrokeTest : MonoBehaviour
     public GameObject edgePrefab;
     public GameObject worldOrigin;
 
+    SerializableDrawing drawing;
+
     void Start()
     {
+        drawing = new SerializableDrawing("DTW001");
         StrokeAround();
+        StrokeAround();
+        StrokeAround();
+        StrokeAround();
+        Debug.Log(JsonUtility.ToJson(drawing, true));
     }
 
     void Update()
@@ -20,9 +27,6 @@ public class StrokeTest : MonoBehaviour
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
                 Destroy(obj);
             StrokeAround();
-            StrokeAround();
-            StrokeAround();
-            StrokeAround();
         }
     }
 
@@ -31,13 +35,13 @@ public class StrokeTest : MonoBehaviour
         Vector3 pnt = Random.insideUnitSphere;
         Vector3 dir = Random.onUnitSphere;
         Stroke stroke = new Stroke(pnt, pointPrefab, edgePrefab, worldOrigin);
-        for (int i = 0; i < 400; ++i)
+        for (int i = 0; i < 10; ++i)
         {
             dir += 0.7f * Random.insideUnitSphere;
             dir.Normalize();
             pnt += 0.1f * dir;
             stroke.AddSegment(pnt);
         }
-        Debug.Log(JsonUtility.ToJson(stroke));
+        drawing.Add(stroke);
     }
 }
