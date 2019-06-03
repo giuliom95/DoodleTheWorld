@@ -242,3 +242,4 @@ MonoBehaviour:
   edgePrefab: {fileID: 1590484618740199819, guid: cf71e6836506b8d47a1caa1df6bfc0f1,
     type: 3}
   worldOrigin: {fileID: 522438544}
+  inputJSON: {fileID: 4900000, guid: 6927d1f3f5d242441aa8c193487d373c, type: 3}

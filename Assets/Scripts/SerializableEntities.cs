@@ -12,16 +12,15 @@ public class SerializableStroke
 [System.Serializable]
 public class SerializableDrawing
 {
-    public string id;
     public List<SerializableStroke> strokes;
     
-    public SerializableDrawing(string id)
+    public SerializableDrawing()
     {
-        this.id = id;
         strokes = new List<SerializableStroke>();
     }
 
-    public void Add(Stroke s) {
+    public void Add(Stroke s)
+    {
         strokes.Add(s.BuildSerializable());
     }
 }
