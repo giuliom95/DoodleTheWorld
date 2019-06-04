@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using GoogleARCore;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class cameraHandling : MonoBehaviour
 {
+    public string apiURL = "https://giuliom95.pythonanywhere.com";
     public Text coordText;
     public GameObject markerPrefab;
     public GameObject pointPrefab;
@@ -17,6 +19,7 @@ public class cameraHandling : MonoBehaviour
     private Camera cam;
 
     private GameObject markerInstance;
+    private string markerId;
     private bool markerIsDefinitive;
 
     private List<AugmentedImage> augmentedImages = new List<AugmentedImage>();
@@ -43,6 +46,7 @@ public class cameraHandling : MonoBehaviour
                 {
                     Anchor anchor = img.CreateAnchor(img.CenterPose);
                     markerInstance = Instantiate(markerPrefab, anchor.transform);
+                    markerId = img.Name;
                     coordText.text = "Tap when the red pyramid\nis aligned to the marker.";
                 }
             }
@@ -64,6 +68,8 @@ public class cameraHandling : MonoBehaviour
                     markerInstance = Instantiate(markerPrefab);
                     markerInstance.transform.position = p;
                     markerInstance.transform.rotation = r;
+
+                    StartCoroutine(LoadArea(markerId));
                 }
                 else
                 {
@@ -74,19 +80,43 @@ public class cameraHandling : MonoBehaviour
                     Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .3f));
 
                     if (touch.phase == TouchPhase.Began)
-                        BeginStroke(p);
+                    {
+                        currentStroke = new Stroke(p, pointPrefab, edgePrefab, markerInstance);
+                        strokes.Add(currentStroke);
+                    }
                     else
                         currentStroke.AddSegment(p);
-
-                    //coordText.text = "Count: " + currentStroke.Count;
                 }
             }
         }
     }
 
-    void BeginStroke(Vector3 p)
+    IEnumerator LoadArea(string areaId)
     {
-        currentStroke = new Stroke(p, pointPrefab, edgePrefab, markerInstance);
-        strokes.Add(currentStroke);
+        string url = apiURL + "/" + areaId;
+        UnityWebRequest req = UnityWebRequest.Get(url);
+        yield return req.SendWebRequest();
+
+        if (req.isNetworkError)
+        {
+            coordText.text = "Net: " + req.error + "\nCode: " + req.responseCode;
+        }
+        else if (req.isHttpError)
+        {
+            coordText.text = "HTTP: " + req.error;
+        }
+        else
+        {
+            var areaData = JsonUtility.FromJson<SerializableArea>(req.downloadHandler.text);
+            foreach (SerializableDrawing d in areaData.drawings)
+            {
+                foreach (SerializableStroke s in d.strokes)
+                {
+                    new Stroke(s, pointPrefab, edgePrefab, markerInstance);
+                }
+            }
+        }
     }
+
+
 }

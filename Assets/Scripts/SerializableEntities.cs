@@ -24,3 +24,9 @@ public class SerializableDrawing
         strokes.Add(s.BuildSerializable());
     }
 }
+
+[System.Serializable]
+public class SerializableArea
+{
+    public List<SerializableDrawing> drawings;
+}

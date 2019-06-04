@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class StrokeTest : MonoBehaviour
 {
@@ -14,12 +15,8 @@ public class StrokeTest : MonoBehaviour
 
     void Start()
     {
-        drawing = JsonUtility.FromJson<SerializableDrawing>(inputJSON.text);
-        foreach(var s in drawing.strokes)
-        {
-            new Stroke(s, pointPrefab, edgePrefab, worldOrigin);
-            StrokeAround();
-        }
+        Debug.Log("Hallo #1");
+        StartCoroutine(LoadArea("test"));
     }
 
     void Update()
@@ -45,5 +42,27 @@ public class StrokeTest : MonoBehaviour
             stroke.AddSegment(pnt);
         }
         //drawing.Add(stroke);
+    }
+
+    IEnumerator LoadArea(string areaId)
+    {
+        UnityWebRequest req = UnityWebRequest.Get("http://giuliom95.pythonanywhere.com/" + areaId);
+        yield return req.SendWebRequest();
+
+        if (req.isNetworkError || req.isHttpError)
+        {
+            Debug.Log(req.error);
+        }
+        else
+        {
+            var areaData = JsonUtility.FromJson<SerializableArea>(req.downloadHandler.text);
+            foreach (SerializableDrawing d in areaData.drawings)
+            {
+                foreach (SerializableStroke s in d.strokes)
+                {
+                    new Stroke(s, pointPrefab, edgePrefab, worldOrigin);
+                }
+            }
+        }
     }
 }
