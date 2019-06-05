@@ -7,7 +7,7 @@ public class Stroke
     GameObject parent;
     GameObject pointPrefab;
     GameObject edgePrefab;
-    List<GameObject> vertices;
+    public List<GameObject> vertices;
     List<GameObject> edges;
 
     public Stroke(SerializableStroke s, GameObject pPfab, GameObject ePfab, GameObject marker)
@@ -18,12 +18,13 @@ public class Stroke
         edges = new List<GameObject>();
 
         parent = new GameObject("Stroke");
-        parent.transform.SetParent(marker.transform);
         parent.transform.position = s.origin;
 
         AddVertex(s.points[0], false);
         for (int i = 1; i < s.points.Count; ++i)
             AddSegment(s.points[i], false);
+
+        parent.transform.SetParent(marker.transform, false);
     }
 
     public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab, GameObject marker)

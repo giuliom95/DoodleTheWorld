@@ -13,7 +13,7 @@ public class cameraHandling : MonoBehaviour
     public GameObject pointPrefab;
     public GameObject edgePrefab;
 
-    private List<Stroke> strokes;
+    private SerializableDrawing drawing;
     private Stroke currentStroke;
 
     private Camera cam;
@@ -26,7 +26,7 @@ public class cameraHandling : MonoBehaviour
 
     void Start()
     {
-        strokes = new List<Stroke>();
+        drawing = new SerializableDrawing();
         cam = GetComponent<Camera>();
         markerInstance = null;
         markerIsDefinitive = false;
@@ -69,7 +69,7 @@ public class cameraHandling : MonoBehaviour
                     markerInstance.transform.position = p;
                     markerInstance.transform.rotation = r;
 
-                    StartCoroutine(LoadArea(markerId));
+                    StartCoroutine(LoadArea());
                 }
                 else
                 {
@@ -80,10 +80,9 @@ public class cameraHandling : MonoBehaviour
                     Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .3f));
 
                     if (touch.phase == TouchPhase.Began)
-                    {
                         currentStroke = new Stroke(p, pointPrefab, edgePrefab, markerInstance);
-                        strokes.Add(currentStroke);
-                    }
+                    else if(touch.phase == TouchPhase.Ended)
+                        drawing.Add(currentStroke);
                     else
                         currentStroke.AddSegment(p);
                 }
@@ -91,9 +90,35 @@ public class cameraHandling : MonoBehaviour
         }
     }
 
-    IEnumerator LoadArea(string areaId)
+    public void SaveButtonClicked()
     {
-        string url = apiURL + "/" + areaId;
+        StartCoroutine(SaveDrawing());
+    }
+
+    IEnumerator SaveDrawing()
+    {
+        string jsonData = JsonUtility.ToJson(drawing);
+        string url = apiURL + "/" + markerId;
+        UnityWebRequest req = UnityWebRequest.Put(url, jsonData);
+        yield return req.SendWebRequest();
+
+        if (req.isNetworkError)
+        {
+            coordText.text = "Net: " + req.error + "\nCode: " + req.responseCode;
+        }
+        else if (req.isHttpError)
+        {
+            coordText.text = "HTTP: " + req.error;
+        }
+        else
+        {
+            coordText.text = "Saved!";
+        }
+    }
+
+    IEnumerator LoadArea()
+    {
+        string url = apiURL + "/" + markerId;
         UnityWebRequest req = UnityWebRequest.Get(url);
         yield return req.SendWebRequest();
 
@@ -112,7 +137,7 @@ public class cameraHandling : MonoBehaviour
             {
                 foreach (SerializableStroke s in d.strokes)
                 {
-                    new Stroke(s, pointPrefab, edgePrefab, markerInstance);
+                    var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance);  
                 }
             }
         }

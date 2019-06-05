@@ -12,11 +12,15 @@ public class StrokeTest : MonoBehaviour
     public TextAsset inputJSON;
 
     SerializableDrawing drawing;
+    string apiURL = "http://giuliom95.pythonanywhere.com/";
 
     void Start()
     {
-        Debug.Log("Hallo #1");
+        //drawing = new SerializableDrawing();
         StartCoroutine(LoadArea("test"));
+        /*for (int i = 0; i < 10; ++i)
+            StrokeAround();
+        StartCoroutine(SaveDrawing("test"));*/
     }
 
     void Update()
@@ -25,7 +29,7 @@ public class StrokeTest : MonoBehaviour
         {
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
                 Destroy(obj);
-            StrokeAround();
+            StartCoroutine(LoadArea("test"));
         }
     }
 
@@ -41,7 +45,7 @@ public class StrokeTest : MonoBehaviour
             pnt += 0.1f * dir;
             stroke.AddSegment(pnt);
         }
-        //drawing.Add(stroke);
+        drawing.Add(stroke);
     }
 
     IEnumerator LoadArea(string areaId)
@@ -63,6 +67,28 @@ public class StrokeTest : MonoBehaviour
                     new Stroke(s, pointPrefab, edgePrefab, worldOrigin);
                 }
             }
+            Debug.Log("Loaded");
+        }
+    }
+
+    IEnumerator SaveDrawing(string areaId)
+    {
+        string jsonData = JsonUtility.ToJson(drawing);   
+        string url = apiURL + "/" + areaId;
+        UnityWebRequest req = UnityWebRequest.Put(url, jsonData);
+        yield return req.SendWebRequest();
+
+        if (req.isNetworkError)
+        {
+            Debug.Log("Net: " + req.error + "\nCode: " + req.responseCode);
+        }
+        else if (req.isHttpError)
+        {
+            Debug.Log("HTTP: " + req.error);
+        }
+        else
+        {
+            Debug.Log("Saved!");
         }
     }
 }
