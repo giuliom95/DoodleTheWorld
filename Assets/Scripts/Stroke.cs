@@ -77,8 +77,13 @@ public class Stroke
         SerializableStroke s = new SerializableStroke();
         s.origin = parent.transform.localPosition;
         s.points = new List<Vector3>();
-        foreach(GameObject v in vertices)
-            s.points.Add(v.transform.localPosition);
+        var T = parent.transform.parent.transform;
+        var p = T.InverseTransformPoint(vertices[0].transform.localPosition);
+        foreach (GameObject v in vertices)
+        {
+            var Tv = T.InverseTransformPoint(v.transform.localPosition);
+            s.points.Add(Tv - p);
+        }
         return s;
     }
 }

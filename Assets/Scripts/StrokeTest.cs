@@ -16,11 +16,22 @@ public class StrokeTest : MonoBehaviour
 
     void Start()
     {
-        //drawing = new SerializableDrawing();
+        drawing = new SerializableDrawing();
         StartCoroutine(LoadArea("test"));
         /*for (int i = 0; i < 10; ++i)
             StrokeAround();
         StartCoroutine(SaveDrawing("test"));*/
+        
+        Vector3 pnt = new Vector3(1, 0, 1);
+        Stroke stroke = new Stroke(pnt, pointPrefab, edgePrefab, worldOrigin);
+        stroke.AddSegment(pnt + new Vector3(1, 0, 0));
+        drawing.Add(stroke);
+
+        stroke = new Stroke(pnt + new Vector3(1, 0, 0), pointPrefab, edgePrefab, worldOrigin);
+        stroke.AddSegment(pnt + new Vector3(2, 0, 0));
+        drawing.Add(stroke);
+        StartCoroutine(SaveDrawing("test"));
+        
     }
 
     void Update()
