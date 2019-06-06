@@ -26,6 +26,8 @@ public class cameraHandling : MonoBehaviour
 
     void Start()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
         drawing = new SerializableDrawing();
         cam = GetComponent<Camera>();
         markerInstance = null;
