@@ -9,6 +9,8 @@ public class cameraHandling : MonoBehaviour
 {
     public string apiURL = "https://giuliom95.pythonanywhere.com";
     public Text coordText;
+    public Text saveBtnText;
+    public Text reloadBtnText;
     public GameObject markerPrefab;
     public GameObject pointPrefab;
     public GameObject edgePrefab;
@@ -33,6 +35,8 @@ public class cameraHandling : MonoBehaviour
         markerInstance = null;
         markerIsDefinitive = false;
         coordText.text = "Point the camera at the marker";
+        saveBtnText.gameObject.SetActive(false);
+        reloadBtnText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -60,9 +64,7 @@ public class cameraHandling : MonoBehaviour
             {
                 if (!markerIsDefinitive)
                 {
-                    coordText.text = "";
                     markerIsDefinitive = true;
-                    
 
                     Vector3 p = markerInstance.transform.position;
                     Quaternion r = markerInstance.transform.rotation;
@@ -97,6 +99,19 @@ public class cameraHandling : MonoBehaviour
         StartCoroutine(SaveDrawing());
     }
 
+    public void ReloadBtnClicked()
+    {
+        saveBtnText.gameObject.SetActive(false);
+        reloadBtnText.gameObject.SetActive(false);
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
+            Destroy(obj);
+
+        drawing = new SerializableDrawing();
+
+        StartCoroutine(LoadArea());
+    }
+
     IEnumerator SaveDrawing()
     {
         string jsonData = JsonUtility.ToJson(drawing);
@@ -120,6 +135,8 @@ public class cameraHandling : MonoBehaviour
 
     IEnumerator LoadArea()
     {
+        coordText.text = "Loading...";
+
         string url = apiURL + "/" + markerId;
         UnityWebRequest req = UnityWebRequest.Get(url);
         yield return req.SendWebRequest();
@@ -142,6 +159,9 @@ public class cameraHandling : MonoBehaviour
                     var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance);  
                 }
             }
+            saveBtnText.gameObject.SetActive(true);
+            reloadBtnText.gameObject.SetActive(true);
+            coordText.text = "";
         }
     }
 

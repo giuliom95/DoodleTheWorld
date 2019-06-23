@@ -21,7 +21,7 @@ public class StrokeTest : MonoBehaviour
         /*for (int i = 0; i < 10; ++i)
             StrokeAround();
         StartCoroutine(SaveDrawing("test"));*/
-        
+        /*
         Vector3 pnt = new Vector3(1, 0, 1);
         Stroke stroke = new Stroke(pnt, pointPrefab, edgePrefab, worldOrigin);
         stroke.AddSegment(pnt + new Vector3(1, 0, 0));
@@ -31,7 +31,7 @@ public class StrokeTest : MonoBehaviour
         stroke.AddSegment(pnt + new Vector3(2, 0, 0));
         drawing.Add(stroke);
         StartCoroutine(SaveDrawing("test"));
-        
+        */
     }
 
     void Update()
