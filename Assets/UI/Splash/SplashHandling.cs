@@ -20,13 +20,13 @@ public class SplashHandling : MonoBehaviour
         fadeRatio = 0.015f;
         fadeDone = false;
 
-        float w = uiCanvas.pixelRect.width;
+        float w = uiCanvas.pixelRect.width / uiCanvas.scaleFactor;
         transform.localScale = new Vector3(w, w, 1);
     }
 
     void Update()
     {
-        if(!fadeDone)
+        if (!fadeDone)
         {
             float curTime = Time.time;
             if(curTime > fadeStartTime)

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class cameraHandling : MonoBehaviour
+public class MainLogic : MonoBehaviour
 {
     public string apiURL = "https://giuliom95.pythonanywhere.com";
     public Text coordText;
