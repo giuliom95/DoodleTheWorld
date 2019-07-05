@@ -20,7 +20,7 @@ public class SplashHandling : MonoBehaviour
         fadeRatio = 0.015f;
         fadeDone = false;
 
-        float w = uiCanvas.pixelRect.width / uiCanvas.scaleFactor;
+        float w = RectTransformUtility.PixelAdjustRect(uiCanvas.GetComponent<RectTransform>(), uiCanvas).width;
         transform.localScale = new Vector3(w, w, 1);
     }
 
@@ -38,6 +38,7 @@ public class SplashHandling : MonoBehaviour
                 if (c.a <= 0)
                 {
                     fadeDone = true;
+                    gameObject.SetActive(false);
                 }
             }
         }

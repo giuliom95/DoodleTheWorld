@@ -9,8 +9,7 @@ public class MainLogic : MonoBehaviour
 {
     public string apiURL = "https://giuliom95.pythonanywhere.com";
     public Text coordText;
-    public Text saveBtnText;
-    public Text reloadBtnText;
+    public GameObject buttons;
     public GameObject markerPrefab;
     public GameObject pointPrefab;
     public GameObject edgePrefab;
@@ -35,8 +34,7 @@ public class MainLogic : MonoBehaviour
         markerInstance = null;
         markerIsDefinitive = false;
         coordText.text = "Point the camera at the marker";
-        saveBtnText.gameObject.SetActive(false);
-        reloadBtnText.gameObject.SetActive(false);
+        //buttons.SetActive(false);
     }
 
     // Update is called once per frame
@@ -101,8 +99,7 @@ public class MainLogic : MonoBehaviour
 
     public void ReloadBtnClicked()
     {
-        saveBtnText.gameObject.SetActive(false);
-        reloadBtnText.gameObject.SetActive(false);
+        //buttons.SetActive(false);
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
             Destroy(obj);
@@ -159,8 +156,7 @@ public class MainLogic : MonoBehaviour
                     var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance);  
                 }
             }
-            saveBtnText.gameObject.SetActive(true);
-            reloadBtnText.gameObject.SetActive(true);
+            //buttons.SetActive(true);
             coordText.text = "";
         }
     }

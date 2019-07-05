@@ -17,7 +17,7 @@ public class StrokeTest : MonoBehaviour
     void Start()
     {
         drawing = new SerializableDrawing();
-        StartCoroutine(LoadArea("test"));
+        //StartCoroutine(LoadArea("test"));
         /*for (int i = 0; i < 10; ++i)
             StrokeAround();
         StartCoroutine(SaveDrawing("test"));*/
@@ -36,12 +36,14 @@ public class StrokeTest : MonoBehaviour
 
     void Update()
     {
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
                 Destroy(obj);
             StartCoroutine(LoadArea("test"));
         }
+        */
     }
 
     void StrokeAround()
