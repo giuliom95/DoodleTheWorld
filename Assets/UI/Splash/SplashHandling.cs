@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SplashHandling : MonoBehaviour
 {
-    public Canvas uiCanvas;
     private Material videoMaterial;
 
     private float fadeStartTime;
@@ -20,8 +19,7 @@ public class SplashHandling : MonoBehaviour
         fadeRatio = 0.015f;
         fadeDone = false;
 
-        float w = RectTransformUtility.PixelAdjustRect(uiCanvas.GetComponent<RectTransform>(), uiCanvas).width;
-        transform.localScale = new Vector3(w, w, 1);
+        // Adjust for the screen
     }
 
     void Update()

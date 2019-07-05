@@ -34,7 +34,7 @@ public class MainLogic : MonoBehaviour
         markerInstance = null;
         markerIsDefinitive = false;
         coordText.text = "Point the camera at the marker";
-        //buttons.SetActive(false);
+        buttons.SetActive(false);
     }
 
     // Update is called once per frame
@@ -99,7 +99,7 @@ public class MainLogic : MonoBehaviour
 
     public void ReloadBtnClicked()
     {
-        //buttons.SetActive(false);
+        buttons.SetActive(false);
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
             Destroy(obj);
@@ -156,7 +156,7 @@ public class MainLogic : MonoBehaviour
                     var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance);  
                 }
             }
-            //buttons.SetActive(true);
+            buttons.SetActive(true);
             coordText.text = "";
         }
     }
