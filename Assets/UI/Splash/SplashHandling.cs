@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SplashHandling : MonoBehaviour
 {
+    public Camera cam;
+    public Animator uiAnimator;
     private Material videoMaterial;
 
     private float fadeStartTime;
@@ -18,12 +20,11 @@ public class SplashHandling : MonoBehaviour
         fadeStartTime = 4.0f;
         fadeRatio = 0.015f;
         fadeDone = false;
-
-        // Adjust for the screen
     }
 
     void Update()
     {
+
         if (!fadeDone)
         {
             float curTime = Time.time;
@@ -37,6 +38,8 @@ public class SplashHandling : MonoBehaviour
                 {
                     fadeDone = true;
                     gameObject.SetActive(false);
+
+                    uiAnimator.SetTrigger("EnterTrigger");
                 }
             }
         }
