@@ -9,6 +9,8 @@ public class StrokeTest : MonoBehaviour
     public GameObject edgePrefab;
     public GameObject worldOrigin;
 
+    public Material[] colors;
+
     public TextAsset inputJSON;
 
     SerializableDrawing drawing;
@@ -17,6 +19,8 @@ public class StrokeTest : MonoBehaviour
     void Start()
     {
         drawing = new SerializableDrawing();
+        for(int i = 0; i < 20; ++i)
+            StrokeAround();
         //StartCoroutine(LoadArea("test"));
         /*for (int i = 0; i < 10; ++i)
             StrokeAround();
@@ -50,7 +54,7 @@ public class StrokeTest : MonoBehaviour
     {
         Vector3 pnt = Random.insideUnitSphere;
         Vector3 dir = Random.onUnitSphere;
-        Stroke stroke = new Stroke(pnt, pointPrefab, edgePrefab, worldOrigin);
+        Stroke stroke = new Stroke(pnt, pointPrefab, edgePrefab, worldOrigin, colors[Random.Range(0, 2)]);
         for (int i = 0; i < 10; ++i)
         {
             dir += 0.7f * Random.insideUnitSphere;
@@ -77,7 +81,7 @@ public class StrokeTest : MonoBehaviour
             {
                 foreach (SerializableStroke s in d.strokes)
                 {
-                    new Stroke(s, pointPrefab, edgePrefab, worldOrigin);
+                    new Stroke(s, pointPrefab, edgePrefab, worldOrigin, colors[1]);
                 }
             }
             Debug.Log("Loaded");

@@ -7,6 +7,7 @@ public class PaletteHandler : MonoBehaviour
 {
     public GameObject palette;
     public GameObject colorIndicator;
+    public MainLogic mainLogic;
 
     public void TogglePalette()
     {
@@ -17,6 +18,8 @@ public class PaletteHandler : MonoBehaviour
     {
         Color c = btn.GetComponent<Image>().color;
         colorIndicator.GetComponent<Image>().color = c;
+        int paletteMaterialId = int.Parse(btn.name.Substring(5));
+        mainLogic.changePaletteMaterial(paletteMaterialId);
         TogglePalette();
     }
 }

@@ -9,9 +9,11 @@ public class Stroke
     GameObject edgePrefab;
     public List<GameObject> vertices;
     List<GameObject> edges;
+    Material material;
 
-    public Stroke(SerializableStroke s, GameObject pPfab, GameObject ePfab, GameObject marker)
+    public Stroke(SerializableStroke s, GameObject pPfab, GameObject ePfab, GameObject marker, Material mat)
     {
+        material = mat;
         pointPrefab = pPfab;
         edgePrefab = ePfab;
         vertices = new List<GameObject>();
@@ -27,8 +29,10 @@ public class Stroke
         parent.transform.SetParent(marker.transform, false);
     }
 
-    public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab, GameObject marker)
+    public Stroke(Vector3 firstPoint, GameObject pPfab, GameObject ePfab, GameObject marker, Material mat)
     {
+        material = mat;
+
         pointPrefab = pPfab;
         edgePrefab = ePfab;
         vertices = new List<GameObject>();
@@ -44,6 +48,7 @@ public class Stroke
     private void AddVertex(Vector3 v, bool worldPositionStays=true)
     {
         GameObject vGO = GameObject.Instantiate(pointPrefab, v, Quaternion.identity);
+        vGO.GetComponent<Renderer>().material = material;
         vGO.transform.SetParent(parent.transform, worldPositionStays);
         vertices.Add(vGO);
     }
@@ -62,6 +67,7 @@ public class Stroke
         Vector3 scale = eGO.transform.localScale;
         scale.z = l;
         eGO.transform.localScale = scale;
+        eGO.GetComponent<Renderer>().material = material;
         edges.Add(eGO);
 
         AddVertex(v1, worldPositionStays);

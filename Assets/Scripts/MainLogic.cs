@@ -14,6 +14,8 @@ public class MainLogic : MonoBehaviour
     public GameObject pointPrefab;
     public GameObject edgePrefab;
 
+    public Material[] paletteMaterials;
+
     private SerializableDrawing drawing;
     private Stroke currentStroke;
 
@@ -24,6 +26,8 @@ public class MainLogic : MonoBehaviour
     private bool markerIsDefinitive;
 
     private List<AugmentedImage> augmentedImages = new List<AugmentedImage>();
+
+    private int currentPaletteMaterial = 0;
 
     void Start()
     {
@@ -82,14 +86,19 @@ public class MainLogic : MonoBehaviour
                     Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .3f));
 
                     if (touch.phase == TouchPhase.Began)
-                        currentStroke = new Stroke(p, pointPrefab, edgePrefab, markerInstance);
-                    else if(touch.phase == TouchPhase.Ended)
+                        currentStroke = new Stroke(p, pointPrefab, edgePrefab, markerInstance, paletteMaterials[currentPaletteMaterial]);
+                    else if (touch.phase == TouchPhase.Ended)
                         drawing.Add(currentStroke);
                     else
                         currentStroke.AddSegment(p);
                 }
             }
         }
+    }
+
+    public void changePaletteMaterial(int matId)
+    {
+        currentPaletteMaterial = matId;
     }
 
     public void SaveButtonClicked()
@@ -153,7 +162,7 @@ public class MainLogic : MonoBehaviour
             {
                 foreach (SerializableStroke s in d.strokes)
                 {
-                    var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance);  
+                    var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance, paletteMaterials[0]);  
                 }
             }
             buttons.SetActive(true);

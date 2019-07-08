@@ -269,6 +269,11 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6601190752192290600, guid: 98d4da1807ea56946b9dc97f05bcdadd,
+        type: 3}
+      propertyPath: mainLogic
+      value: 
+      objectReference: {fileID: 1618804134}
     - target: {fileID: 5691017570170405623, guid: 98d4da1807ea56946b9dc97f05bcdadd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -401,6 +406,23 @@ MonoBehaviour:
     type: 3}
   edgePrefab: {fileID: 1590484618740199819, guid: cf71e6836506b8d47a1caa1df6bfc0f1,
     type: 3}
+  paletteMaterials:
+  - {fileID: 2100000, guid: c852344f5007ceb478e67c6463b41d32, type: 2}
+  - {fileID: 2100000, guid: 5ec897b41a3732149a6ed169a15887eb, type: 2}
+  - {fileID: 2100000, guid: 87fb256e57d255140bdb3ea8ebf5d29d, type: 2}
+  - {fileID: 2100000, guid: 3290dc663b2fa184aa8c8e6706411403, type: 2}
+  - {fileID: 2100000, guid: 895e86f28bce7e7468a7e00038ab3e74, type: 2}
+  - {fileID: 2100000, guid: ef013abe18704db448e5c5f7646d8a20, type: 2}
+  - {fileID: 2100000, guid: b4dfe687c0a5df245a7b47726e952725, type: 2}
+  - {fileID: 2100000, guid: d4d86c3cfba45e84ca9f475d1dbf4783, type: 2}
+  - {fileID: 2100000, guid: 290e6b21a5601c249925fc283b5785b8, type: 2}
+  - {fileID: 2100000, guid: 4497cebb570d2884c9ebf3b84e3cec03, type: 2}
+  - {fileID: 2100000, guid: ba404b218d23ca24e814a0d0d86f0d2a, type: 2}
+  - {fileID: 2100000, guid: 98f2459b4441b5540be2388de796d3fd, type: 2}
+  - {fileID: 2100000, guid: d908a0beb78628a41804df6bbd3cb68b, type: 2}
+  - {fileID: 2100000, guid: 419166e4ed5bbc647a2c2822527626d2, type: 2}
+  - {fileID: 2100000, guid: e93d307c9e033cf4cb9500c383864793, type: 2}
+  - {fileID: 2100000, guid: 0dcaa764b8c7e5542b13c0347b90692e, type: 2}
 --- !u!20 &1618804135 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20155940112608238, guid: c10877f7cd5764de18d46d7b777d1faa,
