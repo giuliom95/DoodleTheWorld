@@ -81,6 +81,7 @@ public class Stroke
     public SerializableStroke BuildSerializable()
     {
         SerializableStroke s = new SerializableStroke();
+        s.color = int.Parse(material.name.Replace("_material", "").Replace("Color", ""));
         s.origin = parent.transform.localPosition;
         s.points = new List<Vector3>();
         var T = parent.transform.parent.transform;

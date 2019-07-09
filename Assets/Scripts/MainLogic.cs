@@ -44,7 +44,7 @@ public class MainLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!markerIsDefinitive)
+        if (!markerIsDefinitive)
         {
             Session.GetTrackables<AugmentedImage>(augmentedImages, TrackableQueryFilter.Updated);
 
@@ -162,7 +162,7 @@ public class MainLogic : MonoBehaviour
             {
                 foreach (SerializableStroke s in d.strokes)
                 {
-                    var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance, paletteMaterials[0]);  
+                    var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance, paletteMaterials[s.color]);  
                 }
             }
             buttons.SetActive(true);

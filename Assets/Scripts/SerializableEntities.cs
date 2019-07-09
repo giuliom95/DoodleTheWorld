@@ -5,8 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class SerializableStroke
 {
-    public Vector3 origin;
-    public List<Vector3> points;
+    public Vector3          origin;
+    public List<Vector3>    points;
+    public int              color;
 }
 
 [System.Serializable]
