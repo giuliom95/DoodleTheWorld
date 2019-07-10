@@ -93,4 +93,10 @@ public class Stroke
         }
         return s;
     }
+
+    public void Destroy()
+    {
+        Object.Destroy(pointPrefab);
+        Object.Destroy(edgePrefab);
+    }
 }

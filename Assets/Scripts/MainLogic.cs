@@ -20,6 +20,7 @@ public class MainLogic : MonoBehaviour
 
     private SerializableDrawing drawing;
     private Stroke currentStroke;
+    private Stack<Stroke> undoStack;
 
     private Camera cam;
 
@@ -37,6 +38,7 @@ public class MainLogic : MonoBehaviour
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         drawing = new SerializableDrawing();
+        undoStack = new Stack<Stroke>();
         cam = GetComponent<Camera>();
         markerPlaceholder = null;
         marker = null;
@@ -100,7 +102,10 @@ public class MainLogic : MonoBehaviour
                     if (touch.phase == TouchPhase.Began)
                         currentStroke = new Stroke(p, pointPrefab, edgePrefab, marker, paletteMaterials[currentPaletteMaterial]);
                     else if (touch.phase == TouchPhase.Ended)
+                    {
                         drawing.Add(currentStroke);
+                        undoStack.Push(currentStroke);
+                    }
                     else
                         currentStroke.AddSegment(p);
                 }
@@ -111,6 +116,11 @@ public class MainLogic : MonoBehaviour
     public void changePaletteMaterial(int matId)
     {
         currentPaletteMaterial = matId;
+    }
+
+    public void UndoButtonClicked()
+    {
+        undoStack.Pop().Destroy();
     }
 
     public void SaveButtonClicked()
