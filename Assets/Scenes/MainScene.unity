@@ -284,6 +284,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1618804134}
+    - target: {fileID: 4675903074852639497, guid: 98d4da1807ea56946b9dc97f05bcdadd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4217543555833331178, guid: 98d4da1807ea56946b9dc97f05bcdadd,
         type: 3}
       propertyPath: m_Name
@@ -453,6 +458,12 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1309922684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4675903074852639497, guid: 98d4da1807ea56946b9dc97f05bcdadd,
+    type: 3}
+  m_PrefabInstance: {fileID: 289469654}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1618804132 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1637996540812124, guid: c10877f7cd5764de18d46d7b777d1faa,
@@ -486,6 +497,7 @@ MonoBehaviour:
     type: 3}
   edgePrefab: {fileID: 1590484618740199819, guid: cf71e6836506b8d47a1caa1df6bfc0f1,
     type: 3}
+  palette: {fileID: 1309922684}
   paletteMaterials:
   - {fileID: 2100000, guid: c852344f5007ceb478e67c6463b41d32, type: 2}
   - {fileID: 2100000, guid: 5ec897b41a3732149a6ed169a15887eb, type: 2}

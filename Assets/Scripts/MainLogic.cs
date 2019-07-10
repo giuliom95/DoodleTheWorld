@@ -4,6 +4,7 @@ using GoogleARCore;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.EventSystems;
 
 public class MainLogic : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class MainLogic : MonoBehaviour
     public GameObject markerPrefab;
     public GameObject pointPrefab;
     public GameObject edgePrefab;
+    public GameObject palette;
 
     public Material[] paletteMaterials;
 
@@ -21,7 +23,8 @@ public class MainLogic : MonoBehaviour
 
     private Camera cam;
 
-    private GameObject markerInstance;
+    private GameObject markerPlaceholder;
+    private GameObject marker;
     private string markerId;
     private bool markerIsDefinitive;
 
@@ -35,7 +38,8 @@ public class MainLogic : MonoBehaviour
 
         drawing = new SerializableDrawing();
         cam = GetComponent<Camera>();
-        markerInstance = null;
+        markerPlaceholder = null;
+        marker = null;
         markerIsDefinitive = false;
         coordText.text = "Point the camera at the marker";
         buttons.SetActive(false);
@@ -50,10 +54,10 @@ public class MainLogic : MonoBehaviour
 
             foreach (AugmentedImage img in augmentedImages)
             {
-                if(markerInstance == null)
+                if(markerPlaceholder == null)
                 {
                     Anchor anchor = img.CreateAnchor(img.CenterPose);
-                    markerInstance = Instantiate(markerPrefab, anchor.transform);
+                    markerPlaceholder = Instantiate(markerPrefab, anchor.transform);
                     markerId = img.Name;
                     coordText.text = "Tap when the red pyramid\nis aligned to the marker.";
                 }
@@ -62,18 +66,26 @@ public class MainLogic : MonoBehaviour
 
         if (Input.touchCount > 0)
         {
-            if (markerInstance != null)
+            // Waits for the user to close the palette before drawing
+            if (palette.activeSelf)
+                return;
+
+            int id = Input.touches[0].fingerId;
+            if (EventSystem.current.IsPointerOverGameObject(id))
+                return;
+
+            if (markerPlaceholder != null)
             {
                 if (!markerIsDefinitive)
                 {
                     markerIsDefinitive = true;
 
-                    Vector3 p = markerInstance.transform.position;
-                    Quaternion r = markerInstance.transform.rotation;
-                    Destroy(markerInstance);
-                    markerInstance = Instantiate(markerPrefab);
-                    markerInstance.transform.position = p;
-                    markerInstance.transform.rotation = r;
+                    Vector3 p = markerPlaceholder.transform.position;
+                    Quaternion r = markerPlaceholder.transform.rotation;
+                    //Destroy(markerPlaceholder);
+                    marker = new GameObject();
+                    marker.transform.position = p;
+                    marker.transform.rotation = r;
 
                     StartCoroutine(LoadArea());
                 }
@@ -86,7 +98,7 @@ public class MainLogic : MonoBehaviour
                     Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .3f));
 
                     if (touch.phase == TouchPhase.Began)
-                        currentStroke = new Stroke(p, pointPrefab, edgePrefab, markerInstance, paletteMaterials[currentPaletteMaterial]);
+                        currentStroke = new Stroke(p, pointPrefab, edgePrefab, marker, paletteMaterials[currentPaletteMaterial]);
                     else if (touch.phase == TouchPhase.Ended)
                         drawing.Add(currentStroke);
                     else
@@ -162,7 +174,7 @@ public class MainLogic : MonoBehaviour
             {
                 foreach (SerializableStroke s in d.strokes)
                 {
-                    var stroke = new Stroke(s, pointPrefab, edgePrefab, markerInstance, paletteMaterials[s.color]);  
+                    var stroke = new Stroke(s, pointPrefab, edgePrefab, marker, paletteMaterials[s.color]);  
                 }
             }
             buttons.SetActive(true);
