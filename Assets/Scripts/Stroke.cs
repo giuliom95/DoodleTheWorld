@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stroke
 {
@@ -96,7 +97,14 @@ public class Stroke
 
     public void Destroy()
     {
-        Object.Destroy(pointPrefab);
-        Object.Destroy(edgePrefab);
+        foreach(GameObject v in vertices)
+        {
+            Object.Destroy(v);
+        }
+
+        foreach (GameObject e in edges)
+        {
+            Object.Destroy(e);
+        }
     }
 }

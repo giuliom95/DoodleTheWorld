@@ -11,6 +11,7 @@ public class MainLogic : MonoBehaviour
     public string apiURL = "https://giuliom95.pythonanywhere.com";
     public Text coordText;
     public GameObject buttons;
+    public GameObject middleDot;
     public GameObject markerPrefab;
     public GameObject pointPrefab;
     public GameObject edgePrefab;
@@ -45,11 +46,13 @@ public class MainLogic : MonoBehaviour
         markerIsDefinitive = false;
         coordText.text = "Point the camera at the marker";
         buttons.SetActive(false);
+        middleDot.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (!markerIsDefinitive)
         {
             Session.GetTrackables<AugmentedImage>(augmentedImages, TrackableQueryFilter.Updated);
@@ -65,7 +68,7 @@ public class MainLogic : MonoBehaviour
                 }
             }
         }
-
+        
         if (Input.touchCount > 0)
         {
             // Waits for the user to close the palette before drawing
@@ -74,7 +77,9 @@ public class MainLogic : MonoBehaviour
 
             int id = Input.touches[0].fingerId;
             if (EventSystem.current.IsPointerOverGameObject(id))
+            {
                 return;
+            }
 
             if (markerPlaceholder != null)
             {
@@ -95,7 +100,6 @@ public class MainLogic : MonoBehaviour
                 {
                     Touch touch = Input.GetTouch(0);
                     Matrix4x4 m = cam.projectionMatrix.inverse;
-                    Vector2 screenPos = touch.position;
 
                     Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .3f));
 
@@ -110,6 +114,10 @@ public class MainLogic : MonoBehaviour
                         currentStroke.AddSegment(p);
                 }
             }
+            else
+            {
+                coordText.text = "Marker not there";
+            }
         }
     }
 
@@ -120,7 +128,11 @@ public class MainLogic : MonoBehaviour
 
     public void UndoButtonClicked()
     {
-        undoStack.Pop().Destroy();
+        if(undoStack.Count > 0)
+        {
+            undoStack.Pop().Destroy();
+            drawing.strokes.Remove(drawing.strokes[drawing.strokes.Count - 1]);
+        }
     }
 
     public void SaveButtonClicked()
@@ -131,6 +143,7 @@ public class MainLogic : MonoBehaviour
     public void ReloadBtnClicked()
     {
         buttons.SetActive(false);
+        middleDot.SetActive(false);
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Instance"))
             Destroy(obj);
@@ -188,6 +201,7 @@ public class MainLogic : MonoBehaviour
                 }
             }
             buttons.SetActive(true);
+            middleDot.SetActive(true);
             coordText.text = "";
         }
     }

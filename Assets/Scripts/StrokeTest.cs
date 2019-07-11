@@ -8,6 +8,7 @@ public class StrokeTest : MonoBehaviour
     public GameObject pointPrefab;
     public GameObject edgePrefab;
     public GameObject worldOrigin;
+    private Stack<Stroke> undoStack;
 
     public Material[] colors;
 
@@ -18,9 +19,12 @@ public class StrokeTest : MonoBehaviour
 
     void Start()
     {
+        undoStack = new Stack<Stroke>();
+
         drawing = new SerializableDrawing();
         for(int i = 0; i < 20; ++i)
             StrokeAround();
+
         //StartCoroutine(LoadArea("test"));
         /*for (int i = 0; i < 10; ++i)
             StrokeAround();
@@ -50,6 +54,17 @@ public class StrokeTest : MonoBehaviour
         */
     }
 
+    public void Undo()
+    {
+        Debug.Log("Undo start " + undoStack.Count + " " + drawing.strokes.Count);
+        if (undoStack.Count > 0)
+        {
+            undoStack.Pop().Destroy();
+            drawing.strokes.Remove(drawing.strokes[drawing.strokes.Count - 1]);
+        }
+        Debug.Log("Undo done " + undoStack.Count + " " + drawing.strokes.Count);
+    }
+
     void StrokeAround()
     {
         Vector3 pnt = Random.insideUnitSphere;
@@ -63,6 +78,7 @@ public class StrokeTest : MonoBehaviour
             stroke.AddSegment(pnt);
         }
         drawing.Add(stroke);
+        undoStack.Push(stroke);
     }
 
     IEnumerator LoadArea(string areaId)

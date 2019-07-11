@@ -360,6 +360,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Color3
       objectReference: {fileID: 0}
+    - target: {fileID: 8690357191455071466, guid: 98d4da1807ea56946b9dc97f05bcdadd,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1446283171}
+    - target: {fileID: 8690357191455071466, guid: 98d4da1807ea56946b9dc97f05bcdadd,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Undo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690357191455071466, guid: 98d4da1807ea56946b9dc97f05bcdadd,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98d4da1807ea56946b9dc97f05bcdadd, type: 3}
 --- !u!4 &787878322 stripped
@@ -550,6 +565,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Splash
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841051172817982176, guid: 47258228351ccc2448a8e350be9c9b78,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7841051172817982207, guid: 47258228351ccc2448a8e350be9c9b78,
         type: 3}
