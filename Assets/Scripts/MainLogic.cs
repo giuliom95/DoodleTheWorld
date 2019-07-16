@@ -44,7 +44,7 @@ public class MainLogic : MonoBehaviour
         markerPlaceholder = null;
         marker = null;
         markerIsDefinitive = false;
-        coordText.text = "Point the camera at the marker";
+        coordText.text = "Point at marker";
         buttons.SetActive(false);
         middleDot.SetActive(false);
     }
@@ -90,6 +90,7 @@ public class MainLogic : MonoBehaviour
                     Vector3 p = markerPlaceholder.transform.position;
                     Quaternion r = markerPlaceholder.transform.rotation;
                     //Destroy(markerPlaceholder);
+                    markerPlaceholder.SetActive(false);
                     marker = new GameObject();
                     marker.transform.position = p;
                     marker.transform.rotation = r;
@@ -101,7 +102,7 @@ public class MainLogic : MonoBehaviour
                     Touch touch = Input.GetTouch(0);
                     Matrix4x4 m = cam.projectionMatrix.inverse;
 
-                    Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(0, 0, .3f));
+                    Vector3 p = transform.localToWorldMatrix.MultiplyPoint(new Vector3(-0.001f, 0.002f, .3f));
 
                     if (touch.phase == TouchPhase.Began)
                         currentStroke = new Stroke(p, pointPrefab, edgePrefab, marker, paletteMaterials[currentPaletteMaterial]);

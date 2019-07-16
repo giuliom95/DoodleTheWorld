@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4527403297373401223}
   - component: {fileID: 1242181465}
   m_Layer: 5
-  m_Name: Color11
+  m_Name: Color10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 4019641781255695735}
   - component: {fileID: 371711855}
   m_Layer: 5
-  m_Name: Color7
+  m_Name: Color6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,7 +454,7 @@ GameObject:
   - component: {fileID: 1692040140552141017}
   - component: {fileID: 963496874}
   m_Layer: 5
-  m_Name: Color2
+  m_Name: Color1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 4152160201964893387}
   - component: {fileID: 1328024099}
   m_Layer: 5
-  m_Name: Color14
+  m_Name: Color13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -784,7 +784,7 @@ GameObject:
   - component: {fileID: 3658657599460672437}
   - component: {fileID: 96698802}
   m_Layer: 5
-  m_Name: Color9
+  m_Name: Color8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 6560362244352901528}
   - component: {fileID: 175691505}
   m_Layer: 5
-  m_Name: Color12
+  m_Name: Color11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1040,7 +1040,7 @@ GameObject:
   - component: {fileID: 2801679716905039723}
   - component: {fileID: 802257875}
   m_Layer: 5
-  m_Name: Color13
+  m_Name: Color12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1168,7 +1168,7 @@ GameObject:
   - component: {fileID: 4457616705828519572}
   - component: {fileID: 4015181540027614254}
   m_Layer: 5
-  m_Name: Color1
+  m_Name: Color0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1296,7 +1296,7 @@ GameObject:
   - component: {fileID: 3554795150381500254}
   - component: {fileID: 1990959538}
   m_Layer: 5
-  m_Name: Color15
+  m_Name: Color14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1424,7 +1424,7 @@ GameObject:
   - component: {fileID: 3194113332911454979}
   - component: {fileID: 1378374431}
   m_Layer: 5
-  m_Name: Color8
+  m_Name: Color7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1552,7 +1552,7 @@ GameObject:
   - component: {fileID: 1864405115825240395}
   - component: {fileID: 1482695465}
   m_Layer: 5
-  m_Name: Color6
+  m_Name: Color5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2458,7 +2458,7 @@ GameObject:
   - component: {fileID: 6838658954620106678}
   - component: {fileID: 1766320602}
   m_Layer: 5
-  m_Name: Color4
+  m_Name: Color3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2586,7 +2586,7 @@ GameObject:
   - component: {fileID: 3539161991045400030}
   - component: {fileID: 2031906709}
   m_Layer: 5
-  m_Name: Color10
+  m_Name: Color9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2714,7 +2714,7 @@ GameObject:
   - component: {fileID: 356839882867663758}
   - component: {fileID: 2019730992}
   m_Layer: 5
-  m_Name: Color5
+  m_Name: Color4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2842,7 +2842,7 @@ GameObject:
   - component: {fileID: 4964727677108251791}
   - component: {fileID: 1672884084}
   m_Layer: 5
-  m_Name: Color3
+  m_Name: Color2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2970,7 +2970,7 @@ GameObject:
   - component: {fileID: 6339234410063371871}
   - component: {fileID: 896322091}
   m_Layer: 5
-  m_Name: Color16
+  m_Name: Color15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
